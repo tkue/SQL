@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="AdventureWorks Sample Reports SQL2008R2">
+</Property><Property Name="Solution File" Value="C:\AdventureWorks\AdventureWorks Sample Reports\AdventureWorks Sample Reports SQL2008R2.sln">
+</Property><Property Name="Date" Value="Saturday, May 18, 2013">
+</Property><Property Name="Time" Value="11:07 AM">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="AdventureWorks Sample Reports SQL2008R2.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="AdventureWorks Sample Reports SQL2008R2.sln" Description="Converted">
+</Event></UpgradeLog>

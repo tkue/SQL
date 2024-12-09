@@ -1,0 +1,6 @@
+{
+    "editor.cursorBlinking": "phase",
+    "editor.minimap.enabled": true,
+    "files.trimTrailingWhitespace": true,
+    "files.trimFinalNewlines": true
+}

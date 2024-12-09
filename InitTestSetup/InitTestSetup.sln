@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "InitTestSetup", "InitTestSetup\InitTestSetup.sqlproj", "{4075E28F-9B7B-4AA8-B7AA-4B0E0186B5FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4F3A853E-C9B7-4515-9BE0-7C3EC702C10B}"
+	ProjectSection(SolutionItems) = preProject
+		InitTestSetup.sql = InitTestSetup.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TotallySql", "TotallySql", "{9C4825A8-822D-498B-A677-62EFB28B83F6}"
+	ProjectSection(SolutionItems) = preProject
+		TotallySql\InstallSQLCore.sql = TotallySql\InstallSQLCore.sql
+		TotallySql\InstallSQLDistributions.sql = TotallySql\InstallSQLDistributions.sql
+		TotallySql\InstallSQLEngineering.sql = TotallySql\InstallSQLEngineering.sql
+		TotallySql\InstallSQLFile.sql = TotallySql\InstallSQLFile.sql
+		TotallySql\InstallSQLFinancials2008.sql = TotallySql\InstallSQLFinancials2008.sql
+		TotallySql\InstallSQLMath2008.sql = TotallySql\InstallSQLMath2008.sql
+		TotallySql\InstallSQLRollingStats.sql = TotallySql\InstallSQLRollingStats.sql
+		TotallySql\InstallSQLStatistics2008.sql = TotallySql\InstallSQLStatistics2008.sql
+		TotallySql\InstallSQLTuples.sql = TotallySql\InstallSQLTuples.sql
+		TotallySql\InstallSQLUtilities2008.sql = TotallySql\InstallSQLUtilities2008.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StoredProcedures", "StoredProcedures", "{415F15D7-6C91-4391-8BCF-E669893F78F0}"
+	ProjectSection(SolutionItems) = preProject
+		sp_GetDefaultDbRootDir.sql = sp_GetDefaultDbRootDir.sql
+		sp_KillDbConn.sql = sp_KillDbConn.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleDatabases", "SampleDatabases", "{BC05C4C6-CEBB-4A1E-A5B9-E8F501326941}"
+	ProjectSection(SolutionItems) = preProject
+		SampleDatabases\northwind.sql = SampleDatabases\northwind.sql
+		SampleDatabases\pubs.sql = SampleDatabases\pubs.sql
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4075E28F-9B7B-4AA8-B7AA-4B0E0186B5FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4075E28F-9B7B-4AA8-B7AA-4B0E0186B5FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4075E28F-9B7B-4AA8-B7AA-4B0E0186B5FF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4075E28F-9B7B-4AA8-B7AA-4B0E0186B5FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4075E28F-9B7B-4AA8-B7AA-4B0E0186B5FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4075E28F-9B7B-4AA8-B7AA-4B0E0186B5FF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

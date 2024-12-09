@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "AdventureWorks Sample Reports 2012", "AdventureWorks Sample Reports 2012.rptproj", "{E1DB7A60-DCBE-476E-8EB2-BE769B230ED9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		DebugLocal|Default = DebugLocal|Default
+		Production|Default = Production|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1DB7A60-DCBE-476E-8EB2-BE769B230ED9}.Debug|Default.ActiveCfg = Debug
+		{E1DB7A60-DCBE-476E-8EB2-BE769B230ED9}.Debug|Default.Build.0 = DebugLocal
+		{E1DB7A60-DCBE-476E-8EB2-BE769B230ED9}.Debug|Default.Deploy.0 = DebugLocal
+		{E1DB7A60-DCBE-476E-8EB2-BE769B230ED9}.DebugLocal|Default.ActiveCfg = DebugLocal
+		{E1DB7A60-DCBE-476E-8EB2-BE769B230ED9}.DebugLocal|Default.Build.0 = DebugLocal
+		{E1DB7A60-DCBE-476E-8EB2-BE769B230ED9}.DebugLocal|Default.Deploy.0 = DebugLocal
+		{E1DB7A60-DCBE-476E-8EB2-BE769B230ED9}.Production|Default.ActiveCfg = Production
+		{E1DB7A60-DCBE-476E-8EB2-BE769B230ED9}.Production|Default.Build.0 = Production
+		{E1DB7A60-DCBE-476E-8EB2-BE769B230ED9}.Production|Default.Deploy.0 = Production
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/7/2017 3:52:31 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="WIN-6FFCSIG2OPH"
+  DTS:CreatorName="WIN-6FFCSIG2OPH\Administrator"
+  DTS:DTSID="{120E2A6A-B429-4545-90E7-48B95218E6A0}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.0600.250"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{14D2E870-B50B-457D-A532-7198BFC7BF8E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[WIN-6FFCSIG2OPH.DWAdventureWorksLT2012Lab01]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{224BE179-21CB-41C5-9150-07E044FD77CF}"
+      DTS:ObjectName="WIN-6FFCSIG2OPH.DWAdventureWorksLT2012Lab01">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=WIN-6FFCSIG2OPH;Initial Catalog=DWAdventureWorksLT2012Lab01;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\ExecSQL-ETL-Fill Dimensions"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C5DF1F22-750A-4213-A884-AEE5E854D3B8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ExecSQL-ETL-Fill Dimensions"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{224BE179-21CB-41C5-9150-07E044FD77CF}"
+          SQLTask:SqlStatementSource=" /*************************************************************&#xA;*                                                            *&#xA;*   Copyright (C) Microsoft Corporation. All rights reserved.*&#xA;*                                                            *&#xA;*************************************************************/&#xA;&#xA; --****************** [ DWAdventureWorksLT2012Lab1 ETL Code ] *********************--&#xA;-- This file will flush and fill the sales data mart in the DWAdventureWorksLT2012Lab1 database&#xA;--***********************************************************************************************--&#xA;Use DWAdventureWorksLT2012Lab01;&#xA;go&#xA;&#xA; &#xA;--********************************************************************--&#xA;-- Drop Foreign Key Constraints&#xA;--********************************************************************--&#xA;&#xA;ALTER TABLE dbo.FactSales DROP CONSTRAINT&#xA;&#x9;fkFactSalesToDimProducts;&#xA;&#xA;ALTER TABLE dbo.FactSales DROP CONSTRAINT &#xA;&#x9;fkFactSalesToDimCustomers;&#xA;&#xA;ALTER TABLE dbo.FactSales DROP CONSTRAINT&#xA;&#x9;fkFactSalesOrderDateToDimDates;&#xA;&#xA;ALTER TABLE dbo.FactSales DROP CONSTRAINT&#xA;&#x9;fkFactSalesShipDateDimDates;&#x9;&#x9;&#x9;&#xA;&#xA;--********************************************************************--&#xA;-- Clear Table Data&#xA;--********************************************************************--&#xA;&#xA;TRUNCATE TABLE dbo.FactSales;&#xA;TRUNCATE TABLE dbo.DimCustomers;&#xA;TRUNCATE TABLE dbo.DimProducts; &#xA;  &#xA;&#xA;--********************************************************************--&#xA;-- Fill Dimension Tables&#xA;--********************************************************************--&#xA;&#xA;-- DimCustomers&#xA;-- &lt;Add ETL Code Here&gt;&#xA;&#xA;INSERT INTO dbo.DimCustomers (&#xA;&#x9;CustomerID&#xA;&#x9;,ContactFullName&#xA;&#x9;,CompanyName&#xA;)&#xA;SELECT &#xA;&#x9;CustomerID&#xA;&#x9;,FullName = CAST((FirstName + ' ' + LastName) AS nvarchar(200))&#xA;&#x9;,CompanyName&#xA;FROM AdventureWorksLT2012.SalesLT.Customer&#xA;go&#xA;&#xA;-- DimProducts&#xA;-- &lt;Add ETL Code Here&gt;&#xA;INSERT INTO dbo.DimProducts (&#xA;&#x9;ProductID&#xA;&#x9;,ProductName&#xA;&#x9;--,ProductNumber&#xA;&#x9;,ProductColor&#xA;&#x9;--,ProductStandardCost&#xA;&#x9;,ProductListPrice&#xA;&#x9;,ProductSize&#xA;&#x9;,ProductWeight&#xA;&#x9;,ProductCategoryID&#xA;&#x9;,ProductCategoryName&#xA;)&#xA;SELECT&#xA;&#x9;p.ProductID&#xA;&#x9;,p.Name&#xA;&#x9;--,ProductNumber = CAST(ProductNumber AS nvarchar(50))&#xA;&#x9;,Color = CAST(ISNULL(p.Color, '') AS nvarchar(50))&#xA;&#x9;--,StandardCost&#xA;&#x9;,p.ListPrice&#xA;&#x9;,Size = ISNULL(p.Size, 0)&#xA;&#x9;,p.Weight&#xA;&#x9;,p.ProductCategoryID&#xA;&#x9;,ISNULL(c.Name, 'N/A')&#xA;FROM AdventureWorksLT2012.SalesLT.Product p&#xA;JOIN AdventureWorksLT2012.SalesLT.ProductCategory c ON p.ProductCategoryID = c.ProductCategoryID&#xA;go&#xA;&#xA;--********************************************************************--&#xA;-- Fill Fact Tables&#xA;--********************************************************************--&#xA;&#xA;-- Fill Fact Sales &#xA;--  &lt;Add ETL Code Here&gt;&#xA;INSERT INTO dbo.FactSales (&#xA;&#x9;SalesOrderID&#xA;&#x9;,SalesOrderDetailID&#xA;&#x9;,CustomerKey&#xA;&#x9;,ProductKey&#xA;&#x9;,OrderDateKey&#xA;&#x9;,ShipDateKey&#xA;&#x9;,OrderQty&#xA;&#x9;,UnitPrice&#xA;&#x9;,UnitPriceDiscount&#xA;)&#xA;SELECT&#xA;&#x9; sod.SalesOrderID&#xA;&#x9;,sod.SalesOrderDetailID&#xA;&#x9;,dc.CustomerKey&#xA;&#x9;,dp.ProductKey&#xA;&#x9;,dd0.CalendarDateKey&#xA;&#x9;,dd1.CalendarDateKey&#xA;&#x9;,sod.OrderQty&#xA;&#x9;,sod.UnitPrice&#xA;&#x9;,sod.UnitPriceDiscount&#xA;FROM AdventureWorksLT2012.SalesLT.SalesOrderDetail sod&#xA;JOIN DWAdventureWorksLT2012Lab01.dbo.DimProducts dp ON dp.ProductID = sod.ProductID&#xA;JOIN AdventureWorksLT2012.SalesLT.SalesOrderHeader soh ON soh.SalesOrderID = sod.SalesOrderID&#xA;JOIN dbo.DimCustomers dc ON dc.CustomerID = soh.CustomerID&#xA;JOIN dbo.DimDates dd0 ON CAST(dd0.CalendarDate AS Date) = CAST(soh.OrderDate AS Date)&#xA;JOIN dbo.DimDates dd1 ON CAST(dd1.CalendarDate AS date) = CAST(soh.ShipDate AS date)&#xA;GO&#xA;&#xA;--********************************************************************--&#xA;-- Replace Foreign Key Constraints&#xA;--********************************************************************--&#xA;ALTER TABLE dbo.FactSales ADD CONSTRAINT&#xA;&#x9;fkFactSalesToDimProducts FOREIGN KEY (ProductKey) &#xA;&#x9;REFERENCES dbo.DimProducts&#x9;(ProductKey);&#xA;&#xA;ALTER TABLE dbo.FactSales ADD CONSTRAINT &#xA;&#x9;fkFactSalesToDimCustomers FOREIGN KEY (CustomerKey) &#xA;&#x9;REFERENCES dbo.DimCustomers (CustomerKey);&#xA; &#xA;ALTER TABLE dbo.FactSales ADD CONSTRAINT&#xA;&#x9;fkFactSalesOrderDateToDimDates FOREIGN KEY (OrderDateKey) &#xA;&#x9;REFERENCES dbo.DimDates(CalendarDateKey);&#xA;&#xA;ALTER TABLE dbo.FactSales ADD CONSTRAINT&#xA;&#x9;fkFactSalesShipDateDimDates FOREIGN KEY (ShipDateKey)&#xA;&#x9;REFERENCES dbo.DimDates (CalendarDateKey);&#xA; &#xA; &#xA;--********************************************************************--&#xA;-- Verify that the tables are filled&#xA;--********************************************************************--&#xA;-- Dimension Tables&#xA;--SELECT * FROM [DWAdventureWorksLT2012Lab01].[dbo].[DimCustomers]; &#xA;--SELECT * FROM [DWAdventureWorksLT2012Lab01].[dbo].[DimProducts]; &#xA;--SELECT * FROM [DWAdventureWorksLT2012Lab01].[dbo].[DimDates]; &#xA;&#xA;---- Fact Tables &#xA;--SELECT * FROM [DWAdventureWorksLT2012Lab01].[dbo].[FactSales]; &#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Setup DW"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{AA687630-214F-4B1D-9D84-470F4A4CA827}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Setup DW">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Setup DW\ExecSQL-Create DW"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{54FFF5E8-E3EA-4153-A435-27F981FF29E4}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="ExecSQL-Create DW"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 CTP2.1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{224BE179-21CB-41C5-9150-07E044FD77CF}"
+              SQLTask:SqlStatementSource="/*************************************************************&#xA;*                                                            *&#xA;*   Copyright (C) Microsoft Corporation. All rights reserved.*&#xA;*                                                            *&#xA;*************************************************************/&#xA;&#xA;&#xA;--****************** [DWAdventureWorksLT2012Lab01] *********************--&#xA;-- This file will drop and create the DWAdventureWorksLT2012Lab01&#xA;-- database, with all its objects. &#xA;--********************************************************************--&#xA;&#xA;USE [master];&#xA;If Exists (Select Name from SysDatabases Where Name = 'DWAdventureWorksLT2012Lab01')&#xA;  Begin&#xA;   Alter database DWAdventureWorksLT2012Lab01 set single_user with rollback immediate;&#xA;   Drop database DWAdventureWorksLT2012Lab01;&#xA;  End&#xA;go&#xA;CREATE DATABASE DWAdventureWorksLT2012Lab01;&#xA;go&#xA;USE DWAdventureWorksLT2012Lab01;&#xA;go&#xA;&#xA;--********************************************************************--&#xA;-- Create the Tables&#xA;--********************************************************************--&#xA;IF OBJECT_ID('dbo.DimCustomers') IS NULL&#xA;BEGIN&#xA;&#x9;DROP TABLE dbo.DimCustomers&#xA;END&#xA;GO&#xA;&#xA;CREATE -- Customers Dimension&#xA;TABLE DimCustomers&#xA;( CustomerKey int Not Null CONSTRAINT [pkDimCustomers] PRIMARY KEY Identity(1,1)&#xA;, CustomerID int Not Null&#xA;, CompanyName nvarchar(200) Not Null&#xA;, ContactFullName nvarchar(200) Not Null&#xA;);&#xA;go&#xA;&#xA;IF OBJECT_ID('dbo.DimProducts') IS NULL&#xA;BEGIN&#xA;&#x9;DROP TABLE dbo.DimProducts&#xA;END&#xA;GO&#xA;&#xA;CREATE -- Products Dimension &#xA;TABLE DimProducts&#x9;&#xA;( ProductKey int Not Null CONSTRAINT [pkDimProducts] PRIMARY KEY Identity(1,1)&#xA;, ProductID int Not Null &#xA;, ProductName nvarchar(50) Not Null&#xA;, ProductColor nvarchar(50) Not Null &#xA;, ProductListPrice money Not Null  &#xA;, ProductSize nvarchar(5) Not Null&#xA;, ProductWeight decimal(8,2 ) Null &#xA;, ProductCategoryID int Not Null&#xA;, ProductCategoryName nVarchar(50) Not Null&#xA;);&#xA;go&#xA;&#xA;IF OBJECT_ID('dbo.DimDates') IS NULL&#xA;BEGIN&#xA;&#x9;DROP TABLE dbo.DimDates&#xA;END&#xA;GO&#xA;&#xA;CREATE -- Dates Dimension  &#xA;TABLE DimDates&#x9;&#xA;( CalendarDateKey int Not Null CONSTRAINT [pkDimDates] PRIMARY KEY&#xA;, CalendarDateName nvarchar(50) Not Null &#xA;, CalendarYearMonthID int Not Null &#xA;, CalendarYearMonthName nvarchar(50) Not Null &#xA;, CalendarYearQuarterID int Not Null &#xA;, CalendarYearQuarterName nvarchar(50) Not Null &#xA;, CalendarYearID int Not Null &#xA;, CalendarYearName nvarchar(50) Not Null&#xA;, CalendarDate Date Not Null  &#xA;, FiscalDate Date Not Null &#xA;);&#xA;go&#xA;&#xA;IF OBJECT_ID('dbo.FactSales') IS NULL&#xA;BEGIN&#xA;&#x9;DROP TABLE dbo.FactSales&#xA;END&#xA;GO&#xA;&#xA;CREATE -- Primary Fact table for the Sales Data Mart&#xA;TABLE FactSales&#x9;&#xA;( SalesOrderID int&#xA;, SalesOrderDetailID int&#xA;, CustomerKey int -- FK to DimCustomers&#xA;, ProductKey int -- FK to DimProducts&#xA;, OrderDateKey int -- FK to DimDates&#xA;, ShipDateKey int -- FK to DimDates&#xA;, OrderQty smallint&#xA;, UnitPrice money&#xA;, UnitPriceDiscount money&#xA;, CONSTRAINT [pkFactSales] PRIMARY KEY &#xA;&#x9;(&#xA;&#x9;&#x9;SalesOrderID&#xA;&#x9;, SalesOrderDetailID&#xA;&#x9;, CustomerKey&#xA;&#x9;, ProductKey&#xA;&#x9;, OrderDateKey&#xA;&#x9;)&#xA;);&#xA;go&#xA;&#xA;--********************************************************************--&#xA;-- Create the Foreign Key CONSTRAINTs&#xA;--********************************************************************--&#xA;ALTER TABLE dbo.FactSales ADD CONSTRAINT&#xA;&#x9;fkFactSalesToDimProducts FOREIGN KEY (ProductKey) &#xA;&#x9;REFERENCES dbo.DimProducts&#x9;(ProductKey);&#xA;go&#xA;&#xA;ALTER TABLE dbo.FactSales ADD CONSTRAINT &#xA;&#x9;fkFactSalesToDimCustomers FOREIGN KEY (CustomerKey) &#xA;&#x9;REFERENCES dbo.DimCustomers (CustomerKey);&#xA;go&#xA;&#xA;ALTER TABLE dbo.FactSales ADD CONSTRAINT&#xA;&#x9;fkFactSalesOrderDateToDimDates FOREIGN KEY (OrderDateKey) &#xA;&#x9;REFERENCES dbo.DimDates(CalendarDateKey);&#xA;go&#xA;&#xA;ALTER TABLE dbo.FactSales ADD CONSTRAINT&#xA;&#x9;fkFactSalesShipDateDimDates FOREIGN KEY (ShipDateKey)&#xA;&#x9;REFERENCES dbo.DimDates (CalendarDateKey);&#xA;go&#xA;&#xA;&#xA;--********************************************************************--&#xA;-- Create the ETL Lookup objects&#xA;--********************************************************************--&#xA;--  Create a Null Lookup table&#xA;If (object_id('ETLNullStatuses') is not null) Drop Table ETLNullStatuses;&#xA;go&#xA;CREATE -- Lookup Null Statuses&#xA;TABLE ETLNullStatuses&#x9;&#xA;( NullStatusID int Not Null  &#xA;, NullStatusDateKey date -- date = YYYY-MM-DD between 0001-01-01 through 9999-12-31&#xA;, NullStatusName nvarchar (50)&#xA;, NullStatusDescription nvarchar (1000)&#xA;CONSTRAINT [pkETLNullStatuses]  PRIMARY KEY Clustered (NullStatusID desc)&#xA;);&#xA;go&#xA;&#xA;&#xA;--********************************************************************--&#xA;-- Fill Lookup Tables&#xA;--********************************************************************--&#xA;--  Fill Null Lookup Table&#xA;INSERT -- Lookup data&#xA;INTO ETLNullStatuses&#xA;( NullStatusID&#xA;, NullStatusDateKey&#xA;, NullStatusName&#xA;, NullStatusDescription&#xA;) &#xA;VALUES&#xA;&#x9;  (-1,'9999-12-31','Unavaliable', 'Value is currently unknown, but should be available later')&#xA;&#x9;, (-2,'0001-01-01','Not Applicable', 'A value is not applicable to this item')&#xA;&#x9;, (-3,'0001-01-02','Unknown', 'Value is currently unknown, but may be available later')&#xA;&#x9;, (-4,'0001-01-03','Corrupt', 'Original value appeared corrupt or suspicious. As such it was removed from the reporting data')&#xA;&#x9;, (-5,'0001-01-04','Not Defined', 'A value could be entered, but the source data has not yet defined it')&#xA;;&#xA;go&#xA;&#xA; -- Fill DimDates Lookup Table&#xA;&#x9;-- Step 1: Fill the table with dates data&#xA;Declare @StartDate date; &#xA;Declare @EndDate date;&#xA;&#xA;-- Get the range of years needed&#xA;Select @StartDate = '01-01-' + Cast(Year(Min([OrderDate])) as nvarchar(50))&#xA;&#x9;From [AdventureWorksLT2012].[SalesLT].[SalesOrderHeader]; &#xA;Select @EndDate = '12-31-' + Cast(Year(Max([OrderDate]))  as nvarchar(50))&#xA;&#x9;From [AdventureWorksLT2012].[SalesLT].[SalesOrderHeader];&#xA;&#xA;-- Use a while loop to add dates to the table&#xA;Declare @DateInProcess datetime = @StartDate;&#xA;&#xA;While @DateInProcess &lt;= @EndDate&#xA;&#x9;Begin&#xA;&#x9;--Add a row into the date dimension table for this date&#xA;&#x9;&#x9;Insert Into [DWAdventureWorksLT2012Lab01].[dbo].[DimDates] &#xA;&#x9;&#x9;( [CalendarDateKey]&#xA;&#x9;&#x9;, [CalendarDateName]&#xA;&#x9;&#x9;, [CalendarYearMonthID]&#xA;&#x9;&#x9;, [CalendarYearMonthName]&#xA;&#x9;&#x9;, [CalendarYearQuarterID]&#xA;&#x9;&#x9;, [CalendarYearQuarterName]&#xA;&#x9;&#x9;, [CalendarYearID]&#xA;&#x9;&#x9;, [CalendarYearName]&#xA;&#x9;&#x9;, [CalendarDate]&#xA;&#x9;&#x9;, [FiscalDate]&#xA;&#x9;&#x9;)&#xA;&#x9;&#x9;Values ( &#xA;&#x9;&#x9;Convert(nvarchar(50), @DateInProcess, 112) -- [CalendarDateKey]&#xA;&#x9;&#x9;, DateName( weekday, @DateInProcess ) + ', ' + Convert(nvarchar(50), @DateInProcess, 110) --  [CalendarDateName]&#xA;&#x9;&#x9;, Left(Convert(nvarchar(50), @DateInProcess, 112), 6) -- [CalendarYearMonthKey]&#xA;&#x9;&#x9;, DateName( month, @DateInProcess ) -- [CalendarYearMonthName]&#xA;&#x9;&#x9;, Cast( Year(@DateInProcess) as nVarchar(50)) + '0' + DateName( quarter, @DateInProcess)   --[CalendarYearQuarterKey]&#xA;&#x9;&#x9;, 'Q' + DateName( quarter, @DateInProcess ) + ' - ' + Cast( Year(@DateInProcess) as nVarchar(50)) --[CalendarYearQuarterName]&#xA;&#x9;&#x9;, Year( @DateInProcess ) -- [CalendarYearKey] &#xA;&#x9;&#x9;, Cast( Year( @DateInProcess) as nVarchar(50) ) -- [CalendarYearName]&#xA;&#x9;&#x9;, Convert([Date], @DateInProcess) &#x9;-- [FiscalDateKey] &#x9;&#x9;&#x9;   &#xA;&#x9;&#x9;, Convert([Date], DateAdd(mm,-6,@DateInProcess)) &#x9;-- [FiscalDateKey] &#xA;&#x9;&#x9;);  &#xA;&#x9;&#x9;-- Add a day and loop again&#xA;&#x9;&#x9;Set @DateInProcess = DateAdd(d, 1, @DateInProcess);&#xA;&#x9;End&#xA;go&#xA;&#xA;--Select 'The Lab1 database was created';&#xA;--Select * From FactSales;&#xA;--Select * From DimCustomers;&#xA;--Select * From DimProducts;&#xA;--Select * From DimDates;&#xA;--Select * From  ETLNullStatuses" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{DB0917B3-90AC-4410-AEB7-E8D095FED09E}"
+      DTS:From="Package\Setup DW"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\ExecSQL-ETL-Fill Dimensions" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="174,42"
+          Id="Package\Setup DW\ExecSQL-Create DW"
+          TopLeft="58,16" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="308,112"
+          Size="308,155"
+          Id="Package\Setup DW"
+          TopLeft="23,13" />
+        <NodeLayout
+          Size="215,42"
+          Id="Package\ExecSQL-ETL-Fill Dimensions"
+          TopLeft="54,221" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="177,168">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-15.5,53"
+              Start="0,0"
+              End="-15.5,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.5"
+                    Point2="0,26.5"
+                    Point3="-4,26.5" />
+                  <mssgle:LineSegment
+                    End="-11.5,26.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-11.5,26.5"
+                    Point2="-15.5,26.5"
+                    Point3="-15.5,30.5" />
+                  <mssgle:LineSegment
+                    End="-15.5,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
